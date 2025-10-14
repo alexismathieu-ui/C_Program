@@ -6,52 +6,75 @@
 
 //TEST TRI FUSION
 
-void fusion(int arr[], int l, int m, int r) {
+void fusion(int arr[], int index1, int index2) {
     int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
+    int mid = (index1 + index2) / 2;
+    
+    // TAILLE DES SOUS-TABLEAUX
 
-    int *L = malloc(n1 * sizeof(int));
-    int *R = malloc(n2 * sizeof(int));
+    int array1 = mid - index1 + 1;
+    int array2 = index2 - mid; 
 
-    for (i = 0; i < n1; i++) //Copie des élément du tableau principal vers les sous tableaux
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
+    // CREATIONS DES SOUS-TABLEAUX
+
+    int *l_arr = malloc(array1 * sizeof(int));
+    int *r_arr = malloc(array2 * sizeof(int));
+
+    //COPIE DES ELEMENTS DU TABLEAUX PRINCIPAL VERS LES SOUS TABLEAUX
+
+    for (i = 0; i < array1; i++) 
+        l_arr[i] = arr[index1 + i];
+    for (j = 0; j < array2; j++)
+        r_arr[j] = arr[mid + 1 + j];
 
     i = j = 0;
-    k = l;
+    k = index1;
     
-    while (i < n1 && j < n2) {  // Fusion des deux sous-tableaux
-        if (L[i] <= R[j]) arr[k++] = L[i++];
-        else arr[k++] = R[j++];
+    // FUSION DES SOUS-TABLEAUX
+
+    while (i < array1 && j < array2) {  
+        if (l_arr[i] <= r_arr[j]) arr[k++] = l_arr[i++];
+        else arr[k++] = r_arr[j++];
     }
 
-    while (i < n1) arr[k++] = L[i++];
-    while (j < n2) arr[k++] = R[j++];
+    while (i < array1) arr[k++] = l_arr[i++];
+    while (j < array2) arr[k++] = r_arr[j++];
 
-    free(L);
-    free(R);
+    free(l_arr);
+    free(r_arr);
 }
 
-void tri_fusion(int arr[], int l, int r) {
-    if (l < r) {
-        int m = (l + r) / 2;
-        tri_fusion(arr, l, m);
-        tri_fusion(arr, m + 1, r);
-        fusion(arr, l, m, r);
+// FONCTION TRI FUSION
+
+void struct_tri(int arr[], int index1, int index2) { 
+    if (index1 < index2) {
+        int mid = (index1 + index2) / 2;
+        
+        struct_tri(arr, index1, mid);
+        struct_tri(arr, mid + 1, index2);
+        
+        fusion(arr, index1, index2);
     }
+}
+
+void tri_fusion(int arr[], int size){
+    struct_tri(arr, 0, size -1);
 }
 
 int main() {
     srand(time(NULL));
-    int number[5] = {rand() % 101, rand() % 101, rand() % 101, rand() % 101, rand() % 101};
+    int number[5];
+    number[0] = rand() % 101;
+    number[1] = rand() % 101;
+    number[2] = rand() % 101;
+    number[3] = rand() % 101;
+    number[4] = rand() % 101;
 
     printf("Tableau original : ");
     for (int i = 0; i < 5; i++) printf("%d ", number[i]);
     printf("\n");
 
-    tri_fusion(number, 0, 4);
+    tri_fusion(number, 5);
 
     printf("Tableau trié : ");
     for (int i = 0; i < 5; i++) printf("%d ", number[i]);
