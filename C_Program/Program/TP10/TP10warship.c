@@ -7,7 +7,7 @@
 
 #define GRID_SIZE 10
 #define NUM_SHIPS 5
-#define SAVE_FILE "savegame.bin"
+#define SAVE_FILE "savegame.txt"
 
 static const int ship_sizes[NUM_SHIPS] = {5,4,3,3,2};
 static const char *ship_names[NUM_SHIPS] = {
@@ -96,6 +96,8 @@ static void print_grid(const char g[GRID_SIZE][GRID_SIZE], int reveal){
 
 
 // Vérifie si un navire peut être placé aux coordonnées données
+
+//c = colonne , r = ligne , ori = orientation
 static int can_place(const char g[GRID_SIZE][GRID_SIZE],
                      int r, int c, char ori, int size){
     if(ori == 'h'){
@@ -340,16 +342,20 @@ static int player_turn(char own[GRID_SIZE][GRID_SIZE],
     printf("Grille adversaire (ce que vous connaissez):\n");
     print_grid(opp, 0);
     int extra_shot = 0;
-    do{
+        do{
         int res = process_single_shot(own, opp, current, win);
-        if(res == -1) return 1;
-        if(res == 2) continue;
+        if(res == -1) return 1;// quitter ou sauvegarder
+        if(res == 2) continue;// mauvaise entrée, redemande
+
+        if(*win) return 0;
+
         extra_shot = (res == 1);
         printf("Votre grille:\n"); print_grid(own, 1);
         printf("Grille adversaire (ce que vous connaissez):\n");
         print_grid(opp, 0);
     } while(extra_shot && !quit_requested);
     return 0;
+
 }
 
 // Charge ou initialise une nouvelle partie et place les navires
@@ -397,7 +403,7 @@ int main(void){
     if(quit_requested){
         printf("Partie interrompue. Vous pouvez la recharger plus tard.\n");
     } else {
-        printf("Merci d'avoir joué à la Bataille Navale ! Au revoir.\n");
+        printf("Au revoir.\n");
     }
     return 0;
 }
