@@ -5,6 +5,7 @@
 #include <math.h>
 #include <unistd.h>
 
+
 /* Fonctions utilitaires pour générer l'image */
 static void hsv_to_rgb(double h, double s, double v,
                        unsigned char *r, unsigned char *g, unsigned char *b)
