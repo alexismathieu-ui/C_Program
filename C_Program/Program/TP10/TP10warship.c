@@ -344,11 +344,9 @@ static int player_turn(char own[GRID_SIZE][GRID_SIZE],
     int extra_shot = 0;
         do{
         int res = process_single_shot(own, opp, current, win);
-        if(res == -1) return 1;// quitter ou sauvegarder
-        if(res == 2) continue;// mauvaise entrée, redemande
-
-        if(*win) return 0;
-
+        if(res == -1) return 1; // quitter ou sauvegarder
+        if(res == 2) continue; // mauvaise entrée, redemande
+        if(*win) return 0; // détection de victoire
         extra_shot = (res == 1);
         printf("Votre grille:\n"); print_grid(own, 1);
         printf("Grille adversaire (ce que vous connaissez):\n");

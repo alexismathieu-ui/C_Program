@@ -15,7 +15,6 @@ void initNode(Node** head, int count) {
         *head = NULL;
         return;
     }
-
     Node* cur = NULL; // cur va servir a parcourir la liste
     for (int i = 1; i <= count; ++i) {
         Node* n = (Node*)malloc(sizeof(Node));
@@ -29,11 +28,17 @@ void initNode(Node** head, int count) {
         if (cur == NULL) {
             *head = n;
             cur = n;
-        } else {
+        } 
+        else {
             cur->next = n;
-            cur = n;
+            cur = n; 
         }
     }
+}
+
+int sumList(Node* head) {
+    if (head == NULL) return 0;
+    return head->data + sumList(head->next);
 }
 
 
@@ -45,12 +50,7 @@ int main() {
     scanf("%d", &value);
     
     initNode(&head, value);
-    Node* cur = head;
-    
-    while (cur != NULL) {
-        printf("%d ", cur->data);
-        cur = cur->next;
-    }
-    printf("\n");
+    int total = sumList(head);
+    printf("La somme de la liste chaînée est : %d\n", total);
     return 0;
 }

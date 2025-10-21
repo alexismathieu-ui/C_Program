@@ -36,6 +36,20 @@ void initNode(Node** head, int count) {
     }
 }
 
+void invertList(Node** head) {
+    Node* prev = NULL; // prev = previous
+    Node* curr = *head; // curr = current
+    Node* next = NULL;
+    
+    while (curr != NULL) {
+        next = curr->next; // sauvegarde le suivant
+        curr->next = prev; // inverse le pointeur
+        prev = curr;       // avance prev
+        curr = next;      // avance curr
+    }
+    *head = prev; // met à jour la tête de la liste
+}
+
 
 int main() {
     Node* head = NULL;
@@ -45,8 +59,9 @@ int main() {
     scanf("%d", &value);
     
     initNode(&head, value);
-    Node* cur = head;
+    invertList(&head);
     
+    Node* cur = head;
     while (cur != NULL) {
         printf("%d ", cur->data);
         cur = cur->next;

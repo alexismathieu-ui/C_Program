@@ -13,7 +13,7 @@ SRC = TP10warship.c
 # Fichiers objets (automatiquement dérivés du .c)
 OBJ = $(SRC:.c=.o)
 
-# Règle par défaut (si tu tapes juste "make")
+# Règle par défaut
 all: $(TARGET)
 
 # Règle pour créer l'exécutable
