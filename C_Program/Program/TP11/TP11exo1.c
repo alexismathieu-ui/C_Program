@@ -23,7 +23,7 @@ void initNode(Node** head, int count) {
             perror("malloc");
             exit(EXIT_FAILURE);
         }
-        n->data = i;    // affecte les nombres 1..count
+        n->data = i;    // affecte les nombres 1 à count
         n->next = NULL;
 
         if (cur == NULL) {
