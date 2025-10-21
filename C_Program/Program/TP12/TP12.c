@@ -283,18 +283,18 @@ void stack_free(Stack *s) {
 
 
 int main(){
-    char buf[1000];
+    char words[1000];
 
     printf("Entrer une phrase pour inverser les caractères: ");
-    if (scanf(" %999[^\n]", buf) == 1) {
-        reverse_string(buf);
-        printf("Chaîne inversée: %s\n", buf);
+    if (scanf(" %999[^\n]", words) == 1) {
+        reverse_string(words);
+        printf("Chaîne inversée: %s\n", words);
     }
 
     printf("Entrer une phrase pour inverser ses mots: ");
-    if (scanf(" %999[^\n]", buf) == 1) {
-        reverse_words(buf);
-        printf("Mots inversés: %s\n", buf);
+    if (scanf(" %999[^\n]", words) == 1) {
+        reverse_words(words);
+        printf("Mots inversés: %s\n", words);
     }
 
     return 0;
